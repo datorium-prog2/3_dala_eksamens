@@ -12,22 +12,43 @@
     <div class="container">
         <div class="row mt-3 mb-5">
           <div class="col-6 offset-3 ">
-            <form class="p-4 border border-3 rounded">
+            <form class="p-4 border border-3 rounded js-add-form">
                 <h1 class="mb-4">
                     Pievienot detaļu
                 </h1>
 
                 <div class="form-group mb-3">
                     <label for="veids">Detaļas veids</label>
-                    <input type="text" class="form-control" id="veids" placeholder="RAM" required>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="veids" 
+                        name="veids"
+                        placeholder="RAM" 
+                        required
+                    >
                   </div>
                   <div class="form-group mb-3">
                     <label for="modelis">Detaļas modelis</label>
-                    <input type="text" class="form-control" id="modelis" placeholder="Corsair Vengeance LPX 16GB" required>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="modelis" 
+                        name="modelis" 
+                        placeholder="Corsair Vengeance LPX 16GB" 
+                        required
+                    >
                   </div>
                   <div class="form-group mb-3">
                     <label for="cena">Detaļas cena</label>
-                    <input type="number" class="form-control" id="cena" placeholder="99,99" required>
+                    <input 
+                        type="number" 
+                        class="form-control" 
+                        id="cena" 
+                        name="cena" 
+                        placeholder="99,99" 
+                        required
+                    >
                   </div>
                 <div class="row">
                     <div class="col">

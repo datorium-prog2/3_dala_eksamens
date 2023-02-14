@@ -32,3 +32,24 @@ class DatoraDetala {
 }
 
 const detala = new DatoraDetala('RAM', 'Corsair Vengeance LPX 16GB', 99.99)
+
+
+class DatoraDetalasForma {
+    constructor(addFormSelector) {
+        this.addFormElement = document.querySelector(addFormSelector)
+
+        this.addFormElement.addEventListener('submit', (eventObject) => {
+            eventObject.preventDefault()
+
+            const formData = new FormData(this.addFormElement);
+
+
+            console.log(formData.get('veids'))
+            console.log(formData.get('modelis'))
+            console.log(formData.get('cena'))
+        })
+    }
+}
+
+
+const datoruDetalasDarbibas = new DatoraDetalasForma('.js-add-form')
