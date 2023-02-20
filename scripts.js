@@ -63,6 +63,7 @@ class DatoraDetalasFormas {
         // pasaka ko darīt kad tiek pievienots jaus ieraksts
         this.addSubmitHandler()
 
+        // pieliekam edit handlerus uz formām
         this.addEditHandlers()
     }
 
@@ -104,8 +105,10 @@ class DatoraDetalasFormas {
     }
 
     addEditHandlers() {
+        // paņemam visas edit formas
         const allEditForms = this.partWrapperElement.querySelectorAll('.js-edit');
 
+        // ejam cauri katrai un iedodam eventu
         allEditForms.forEach((form, index) => {
             form.addEventListener('submit', (eventObject) => {
                 // sakam lai uz submita lapa nepārlādējās
@@ -136,6 +139,7 @@ class DatoraDetalasFormas {
         }
     }
 
+    // abstrahējam prom HTML lai viņš mums netraucē
     getPartHtmlCode(part) {
         return `<form class="js-edit">
         <table class="table table-striped m-0">
