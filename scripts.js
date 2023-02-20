@@ -42,10 +42,16 @@ const detala = new DatoraDetala('RAM', 'Corsair Vengeance LPX 16GB', 99.99)
 
 // Klase, kas atbild par to, lai forma strādātu kā vēlamies
 class DatoraDetalasFormas {
-    constructor(addFormSelector) {
+    constructor(addFormSelector, partWrapperSelector) {
         // izvēlamies formas elementu
         this.addFormElement = document.querySelector(addFormSelector)
+        this.partWrapperElement = document.querySelector(partWrapperSelector)
+        this.allParts = []
 
+        this.submitHandler()
+    }
+
+    submitHandler() {
         // iedodam formas elementam eventa listeneri uz submit
         this.addFormElement.addEventListener('submit', (eventObject) => {
             // sakam lai uz submita lapa nepārlādējās
@@ -53,13 +59,29 @@ class DatoraDetalasFormas {
             // iegūstam objektu, kurā ir pieejama indormācija par formas inputu vērtībām
             const formData = new FormData(this.addFormElement);
 
-            // šādi var iegūt vērtības, kur veids === input name
-            console.log(formData.get('veids'))
-            console.log(formData.get('modelis'))
-            console.log(formData.get('cena'))
+            // izveidojam jaunu detaļas objektu
+            const newPart = new DatoraDetala(
+                formData.get('veids'), 
+                formData.get('modelis'), 
+                formData.get('cena')
+            )
+
+            // liek klāt pie visām detaļām
+            this.allParts.push(newPart)
+            // izveidojam un pieliek klāt jaunu rindu mūsu tabulā
+            this.addPartHtml(newPart)
+
+            // iztīram visas formas vērtības, lai pievienojot detaļu forma būtu tukša
+            this.addFormElement.reset()
         })
+    }
+
+    addPartHtml(newPart) {
+        this.partWrapperElement.innerHTML = 'Hello there'
+
+        console.log('Šeit es veidošu HTML manai jaunajai detaļai')
     }
 }
 
 // inicializējam klasi
-const datoruDetalasDarbibas = new DatoraDetalasFormas('.js-add-form')
+const datoruDetalasDarbibas = new DatoraDetalasFormas('.js-add-form', '.js-part-wrapper')
