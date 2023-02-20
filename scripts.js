@@ -69,17 +69,65 @@ class DatoraDetalasFormas {
             // liek klāt pie visām detaļām
             this.allParts.push(newPart)
             // izveidojam un pieliek klāt jaunu rindu mūsu tabulā
-            this.addPartHtml(newPart)
+            this.addAllPartHtml(newPart)
 
             // iztīram visas formas vērtības, lai pievienojot detaļu forma būtu tukša
             this.addFormElement.reset()
         })
     }
 
-    addPartHtml(newPart) {
-        this.partWrapperElement.innerHTML = 'Hello there'
+    addAllPartHtml(newPart) {
+        // jāizveido HTMLs un jāpievieno klāt iekš this.partWrapperElement.innerHTML
+        let finalHTML = ""
 
-        console.log('Šeit es veidošu HTML manai jaunajai detaļai')
+        this.allParts.forEach((part) => {
+            finalHTML += `<form action="">
+            <table class="table table-striped m-0">
+                <tbody>
+                    <tr>
+                    <td valign="middle" style="width: 30%;">
+                        <input 
+                            type="text" 
+                            name="veids" 
+                            value="${part.veids}"
+                            placeholder="RAM" 
+                            class="form-control"
+                            required
+                        >
+                    </td>
+                    <td valign="middle" style="width: 30%;">
+                        <input 
+                            type="text" 
+                            name="modelis" 
+                            value="${part.modelis}"
+                            class="form-control"
+                            required
+                            placeholder="Corsair Vengeance LPX 16GB" 
+                        >
+                    </td>
+                    <td valign="middle" style="width: 30%;">
+                        <input 
+                            type="number" 
+                            name="cena" 
+                            value="${part.cena}"
+                            class="form-control"
+                            placeholder="99,99" 
+                            required
+                        >
+                    </td>
+                    <td valign="middle" style="width: 10%;">
+                        <button type="submit" class="btn btn-dark btn-sm">
+                            Labot
+                        </button>
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>`
+    })
+
+
+    this.partWrapperElement.innerHTML = finalHTML
     }
 }
 
