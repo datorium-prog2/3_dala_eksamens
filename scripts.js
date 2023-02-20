@@ -45,25 +45,39 @@ class DatoraDetalasFormas {
     constructor(addFormSelector, partWrapperSelector) {
         // izvēlamies formas elementu
         this.addFormElement = document.querySelector(addFormSelector)
+        // izvēlamies wrapper elementu kurā galabāsim ģenerāto HTML
         this.partWrapperElement = document.querySelector(partWrapperSelector)
-        this.allParts = []
+        // šeit mēs glabāsim visas detaļas, lai varam piekļūt datiem
+        // sākuma izveidojam vienu detaļu, lai rādās HTMLs
+        this.allParts = [
+            new DatoraDetala('RAM', 'Corsair Vengeance LPX 16GB', 99.99)
+        ]
 
-        this.submitHandler()
+        // veidam init darbības
+        this.init()
     }
 
-    submitHandler() {
+    init() {
+        // pirmajā reizē uz ielādi uzzīmējam HTML balstoties uz this.allParts
+        this.addAllPartHtml()
+        // pasaka ko darīt kad tiek pievienots jaus ieraksts
+        this.addSubmitHandler()
+
+        this.addEditHandlers()
+    }
+
+    addSubmitHandler() {
         // iedodam formas elementam eventa listeneri uz submit
         this.addFormElement.addEventListener('submit', (eventObject) => {
             // sakam lai uz submita lapa nepārlādējās
             eventObject.preventDefault()
-            // iegūstam objektu, kurā ir pieejama indormācija par formas inputu vērtībām
-            const formData = new FormData(this.addFormElement);
 
-            // izveidojam jaunu detaļas objektu
+            const formData = this.getFormData(this.addFormElement)
+
             const newPart = new DatoraDetala(
-                formData.get('veids'), 
-                formData.get('modelis'), 
-                formData.get('cena')
+                formData.veids, 
+                formData.modelis,
+                formData.cena
             )
 
             // liek klāt pie visām detaļām
@@ -77,57 +91,95 @@ class DatoraDetalasFormas {
     }
 
     addAllPartHtml(newPart) {
-        // jāizveido HTMLs un jāpievieno klāt iekš this.partWrapperElement.innerHTML
+        // izveidojam mainīgo kurā glabāsim HTML
         let finalHTML = ""
 
+        // ejam cauri katrai detaļai un katrai detaļai izveidojam savu HTML
         this.allParts.forEach((part) => {
-            finalHTML += `<form action="">
-            <table class="table table-striped m-0">
-                <tbody>
-                    <tr>
-                    <td valign="middle" style="width: 30%;">
-                        <input 
-                            type="text" 
-                            name="veids" 
-                            value="${part.veids}"
-                            placeholder="RAM" 
-                            class="form-control"
-                            required
-                        >
-                    </td>
-                    <td valign="middle" style="width: 30%;">
-                        <input 
-                            type="text" 
-                            name="modelis" 
-                            value="${part.modelis}"
-                            class="form-control"
-                            required
-                            placeholder="Corsair Vengeance LPX 16GB" 
-                        >
-                    </td>
-                    <td valign="middle" style="width: 30%;">
-                        <input 
-                            type="number" 
-                            name="cena" 
-                            value="${part.cena}"
-                            class="form-control"
-                            placeholder="99,99" 
-                            required
-                        >
-                    </td>
-                    <td valign="middle" style="width: 10%;">
-                        <button type="submit" class="btn btn-dark btn-sm">
-                            Labot
-                        </button>
-                    </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>`
+            finalHTML += this.getPartHtmlCode(part)
     })
 
-
+    // kad HTML ir gatavs, tad liekm iekšā mūsu wrapperī
     this.partWrapperElement.innerHTML = finalHTML
+    }
+
+    addEditHandlers() {
+        const allEditForms = this.partWrapperElement.querySelectorAll('.js-edit');
+
+        allEditForms.forEach((form, index) => {
+            form.addEventListener('submit', (eventObject) => {
+                // sakam lai uz submita lapa nepārlādējās
+                eventObject.preventDefault();
+
+                // paņemam atjauninātos datus
+                const updatedData = this.getFormData(form)
+
+                // izlabojam detaļu kuru atradām pēc index ar jauniem datiem
+                // NB detaļa ir klase un detaļai bija metode mainīt datus
+                this.allParts[index].labotDetalu(updatedData.veids, updatedData.modelis, updatedData.cena)
+                
+                // pārzīmējam visu HTML
+                this.addAllPartHtml()
+            })
+        })
+
+    }
+
+    // paņem un atgriež datus no formas
+    getFormData(form) {
+        const formData = new FormData(form);
+
+        return {
+            veids:  formData.get('veids'), 
+            modelis: formData.get('modelis'), 
+            cena: formData.get('cena')
+        }
+    }
+
+    getPartHtmlCode(part) {
+        return `<form class="js-edit">
+        <table class="table table-striped m-0">
+            <tbody>
+                <tr>
+                <td valign="middle" style="width: 30%;">
+                    <input 
+                        type="text" 
+                        name="veids" 
+                        value="${part.veids}"
+                        placeholder="RAM" 
+                        class="form-control"
+                        required
+                    >
+                </td>
+                <td valign="middle" style="width: 30%;">
+                    <input 
+                        type="text" 
+                        name="modelis" 
+                        value="${part.modelis}"
+                        class="form-control"
+                        required
+                        placeholder="Corsair Vengeance LPX 16GB" 
+                    >
+                </td>
+                <td valign="middle" style="width: 30%;">
+                    <input 
+                        type="number" 
+                        name="cena" 
+                        value="${part.cena}"
+                        class="form-control"
+                        placeholder="99,99" 
+                        required
+                    >
+                </td>
+                <td valign="middle" style="width: 10%;">
+                    <button type="submit" class="btn btn-dark btn-sm">
+                        Labot
+                    </button>
+                </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>`
     }
 }
 
