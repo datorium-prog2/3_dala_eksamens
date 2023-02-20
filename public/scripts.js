@@ -184,9 +184,13 @@ class DatoraDetalasFormas {
                     <button type="submit" class="btn btn-success btn-sm">
                         Labot
                     </button>
-                    <button type="submit" class="btn btn-primary btn-sm">
-                        saglabāt (txt)
-                    </button>
+                    <a 
+                        href="/create_txt?veids=${part.veids}&modelis=${part.modelis}&cena=${part.cena}" 
+                        target="_blank"
+                        class="btn btn-primary btn-sm"
+                    >
+                        saglabāt jaunu kopiju (txt)
+                    </a>
                 </td>
                 </tr>
             </tbody>
@@ -194,6 +198,8 @@ class DatoraDetalasFormas {
     </form>`
     }
 }
+
+// http://localhost:3000/create_txt?veids=RAM&models=DDR5&cena=9.99
 
 // inicializējam klasi
 const datoruDetalasDarbibas = new DatoraDetalasFormas('.js-add-form', '.js-part-wrapper')
