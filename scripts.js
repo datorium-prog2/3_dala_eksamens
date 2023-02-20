@@ -67,6 +67,11 @@ class DatoraDetalasFormas {
         this.addEditHandlers()
     }
 
+    tableRefresh() {
+        this.addAllPartHtml()
+        this.addEditHandlers()
+    }
+
     addSubmitHandler() {
         // iedodam formas elementam eventa listeneri uz submit
         this.addFormElement.addEventListener('submit', (eventObject) => {
@@ -122,7 +127,7 @@ class DatoraDetalasFormas {
                 this.allParts[index].labotDetalu(updatedData.veids, updatedData.modelis, updatedData.cena)
                 
                 // pārzīmējam visu HTML
-                this.addAllPartHtml()
+                this.tableRefresh()
             })
         })
 
