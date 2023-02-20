@@ -126,7 +126,7 @@ class DatoraDetalasFormas {
                 // NB detaļa ir klase un detaļai bija metode mainīt datus
                 this.allParts[index].labotDetalu(updatedData.veids, updatedData.modelis, updatedData.cena)
                 
-                // pārzīmējam visu HTML
+                // pārzīmējam visu HTML un iedotam eventus pa jaunu
                 this.tableRefresh()
             })
         })
