@@ -147,10 +147,10 @@ class DatoraDetalasFormas {
     // abstrahējam prom HTML lai viņš mums netraucē
     getPartHtmlCode(part) {
         return `<form class="js-edit">
-        <table class="table table-striped m-0">
+        <table class="table table-striped m-0 table-primary">
             <tbody>
                 <tr>
-                <td valign="middle" style="width: 30%;">
+                <td valign="middle" style="width: 25%;">
                     <input 
                         type="text" 
                         name="veids" 
@@ -160,7 +160,7 @@ class DatoraDetalasFormas {
                         required
                     >
                 </td>
-                <td valign="middle" style="width: 30%;">
+                <td valign="middle" style="width: 25%;">
                     <input 
                         type="text" 
                         name="modelis" 
@@ -170,7 +170,7 @@ class DatoraDetalasFormas {
                         placeholder="Corsair Vengeance LPX 16GB" 
                     >
                 </td>
-                <td valign="middle" style="width: 30%;">
+                <td valign="middle" style="width: 25%;">
                     <input 
                         type="number" 
                         name="cena" 
@@ -180,9 +180,12 @@ class DatoraDetalasFormas {
                         required
                     >
                 </td>
-                <td valign="middle" style="width: 10%;">
-                    <button type="submit" class="btn btn-dark btn-sm">
+                <td valign="middle" style="width: 25%;">
+                    <button type="submit" class="btn btn-success btn-sm">
                         Labot
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        saglabāt (txt)
                     </button>
                 </td>
                 </tr>
