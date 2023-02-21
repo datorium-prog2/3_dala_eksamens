@@ -30,15 +30,12 @@ class DatoraDetala {
 
     // datu validācijs metode
     validetDetalasDatus (veids, modelis, cena) {
-        if (!veids || !modelis || cena === undefined) {
+        if (veids === undefined || modelis === undefined || cena === undefined) {
             throw Error('Nav padota visa nepieciešamā informācija!')
         }
     }
 
 }
-
-// šādi tiek veidota jauna detaļa OOP pierakstā, kur mēs no klases izveidojam detaļas instanci
-const detala = new DatoraDetala('RAM', 'Corsair Vengeance LPX 16GB', 99.99)
 
 // Klase, kas atbild par to, lai forma strādātu kā vēlamies
 class DatoraDetalasFormas {
@@ -50,6 +47,7 @@ class DatoraDetalasFormas {
         // šeit mēs glabāsim visas detaļas, lai varam piekļūt datiem
         // sākuma izveidojam vienu detaļu, lai rādās HTMLs
         this.allParts = [
+            // šādi tiek veidota jauna detaļa OOP pierakstā, kur mēs no klases izveidojam detaļas instanci
             new DatoraDetala('RAM', 'Corsair Vengeance LPX 16GB', 99.99)
         ]
 
@@ -62,11 +60,11 @@ class DatoraDetalasFormas {
         this.addAllPartHtml()
         // pasaka ko darīt kad tiek pievienots jaus ieraksts
         this.addSubmitHandler()
-
         // pieliekam edit handlerus uz formām
         this.addEditHandlers()
     }
 
+    // pārzīmē visu tabula ja dati ir mainījušies
     tableRefresh() {
         this.addAllPartHtml()
         this.addEditHandlers()
@@ -103,10 +101,10 @@ class DatoraDetalasFormas {
         // ejam cauri katrai detaļai un katrai detaļai izveidojam savu HTML
         this.allParts.forEach((part) => {
             finalHTML += this.getPartHtmlCode(part)
-    })
+        })
 
-    // kad HTML ir gatavs, tad liekm iekšā mūsu wrapperī
-    this.partWrapperElement.innerHTML = finalHTML
+        // kad HTML ir gatavs, tad liekm iekšā mūsu wrapperī
+        this.partWrapperElement.innerHTML = finalHTML
     }
 
     addEditHandlers() {
@@ -198,8 +196,6 @@ class DatoraDetalasFormas {
     </form>`
     }
 }
-
-// http://localhost:3000/create_txt?veids=RAM&models=DDR5&cena=9.99
 
 // inicializējam klasi
 const datoruDetalasDarbibas = new DatoraDetalasFormas('.js-add-form', '.js-part-wrapper')
