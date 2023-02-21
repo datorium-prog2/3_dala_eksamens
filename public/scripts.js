@@ -116,7 +116,6 @@ class DatoraDetalasFormas {
         // ejam cauri katrai un iedodam eventu
         allEditForms.forEach((form, index) => {
             form.addEventListener('submit', (eventObject) => {
-                console.log(888);
                 // sakam lai uz submita lapa nepārlādējās
                 eventObject.preventDefault();
 
