@@ -87,14 +87,16 @@ class DatoraDetalasFormas {
             // liek klāt pie visām detaļām
             this.allParts.push(newPart)
             // izveidojam un pieliek klāt jaunu rindu mūsu tabulā
-            this.addAllPartHtml(newPart)
+            
+            alert('Detaļa ir izveidota')
+            this.tableRefresh()
 
             // iztīram visas formas vērtības, lai pievienojot detaļu forma būtu tukša
             this.addFormElement.reset()
         })
     }
 
-    addAllPartHtml(newPart) {
+    addAllPartHtml() {
         // izveidojam mainīgo kurā glabāsim HTML
         let finalHTML = ""
 
@@ -114,6 +116,7 @@ class DatoraDetalasFormas {
         // ejam cauri katrai un iedodam eventu
         allEditForms.forEach((form, index) => {
             form.addEventListener('submit', (eventObject) => {
+                console.log(888);
                 // sakam lai uz submita lapa nepārlādējās
                 eventObject.preventDefault();
 
@@ -124,6 +127,8 @@ class DatoraDetalasFormas {
                 // NB detaļa ir klase un detaļai bija metode mainīt datus
                 this.allParts[index].labotDetalu(updatedData.veids, updatedData.modelis, updatedData.cena)
                 
+                alert('Detaļa ir atjaunināta')
+
                 // pārzīmējam visu HTML un iedotam eventus pa jaunu
                 this.tableRefresh()
             })
